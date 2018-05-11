@@ -119,16 +119,16 @@ d3.json("./blob.json").then(function(data){
 		// 	);
 		// });
 	//TODO: Draw Average line
-	// svg.append("g")
-	// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
-	// 	.selectAll("line")
-	// 	.data(d)
-	// 	.enter().append("line")
-	// 	.attr("x1", call(max))
-	// 	.attr("y1", call(min.))
-	// 	.attr("x2", function(d){ return xScale(d.sectionName) - 5 ;})
-	// 	.attr("y2", function(d){ return yScale(d.mean);})
-	// 	;	
+	svg.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
+		.selectAll("line")
+		.data(d)
+		.enter().append("line")
+		.attr("x1", function(d){ return xScale(d.sectionName) + 5 ;})
+		.attr("y1", function(d){ return yScale(d.mean);})
+		.attr("x2", function(d){ return xScale(d.sectionName) - 5 ;})
+		.attr("y2", function(d){ return yScale(d.mean);})
+		;	
 
 });
 
