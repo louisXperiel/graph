@@ -36,16 +36,15 @@ var svg = d3.select("body").append("svg")
 // Grab the json and generate the shapes here
 d3.json("./blob.json").then(function(data){
 	var d = data.sectionStats;
-	var quartileArray = []
-	d.forEach(function(quartileArray){
-		console.log(d3.quantile(quartileArray,0.75));
-	});
-	console.log(d3.quantile(quartileArray[0],0.75));
-	console.log(d3.nest()
-		.key(function(d){ return d.sectionName; })
-		.map(d.quartiles, d3.map)
-		.entries(d.map(function(d){ return d.quartiles;}))
-	);
+	var quartileArray = [];
+	// d.forEach(function(quartileArray){
+	// 	return d3.quantile(quartileArray.quartiles, 0);
+	// });
+	// console.log(d3.nest()
+	// 	.key(function(d){ return d.sectionName; })
+	// 	.map(d.quartiles, d3.map)
+	// 	.entries(d.map(function(d){ return d.quartiles;}))
+	// );
 	//console.log(d3.quantile(d.map(function(d){ return d.max;}), 0.25));
 	//console.log(d3.nest(function(d){ return d3.map(d.quartiles);}));
 	//Shapes
@@ -55,7 +54,7 @@ d3.json("./blob.json").then(function(data){
 	//SCALE
 	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.001)), 0]);
 	xScale.domain(d.map(function(d){ return d.sectionName; }));
-
+	console.log(yScale(4))
 	//adding y axis to the left of the chart
 	//this should transform based on the margin 
 	svg.append("g")
@@ -98,14 +97,25 @@ d3.json("./blob.json").then(function(data){
 	// max ovservation = highest quartile?
 	// https://www.researchgate.net/figure/Diagram-of-boxplot-components-including-mean-median-1st-and-3rd-quartiles-outliers-and_fig4_321962400
 	// 3rd quartile 75%
-	box.append("g")
+	svg.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 		.selectAll("rect")
 		.data(d)
 		.enter().append("rect")
 		.attr("x", function(d){ return xScale(d.sectionName) - 5;})
-		.attr("y", function(d){ return yScale(d3);})
-		.attr("height", function(d){ return yScale(d.max)/2; }) 
+		//.attr("y", function(d){ return yScale(d3.quantile(d.quartile, 0));})
+		.attr("y", d.forEach(function(quartileArray){
+			return yScale(d3.quantile(quartileArray.quartiles, 0));
+		}))
+		.attr("height", 12) 
 		.attr("width", 10);
+	// d.forEach(function(quartileArray){
+	// 	//console.log(yScale(d3.quantile(quartileArray.quartiles, 0)));
+	// 	//console.log(d3.quantile(quartileArray.quartiles, 0))
+	// 	return box.attr(
+	// 		"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, 0));})
+	// 	);
+	// });
 		//.attr("y", d3.map(function(d){ return height - margin.top - margin.bottom - yScale(d.average);}));
 		//.attr("height", 200)
 		//.attr("width", 300);
