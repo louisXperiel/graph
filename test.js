@@ -58,6 +58,15 @@ d3.json("./blob.json").then(function(data){
 		.attr("class", "y axis")
 		.attr("transform", "translate(" + margin.right + "," + margin.top + ")")
 		.call(yAxis);
+	
+	svg.append("g")
+		.selectAll("text")
+		.enter().append("text")             
+		.attr("transform",
+			  "translate(" + margin.right + " ," + 
+							 margin.top + 20 + ")")
+		.style("text-anchor", "middle")
+		.text("Date");
 
 	//adding x axis to the bottom of chart
 	svg.append("g")
@@ -99,34 +108,35 @@ d3.json("./blob.json").then(function(data){
 		.selectAll("rect")
 		.data(d)
 		.enter().append("rect")
-		.attr("x", function(d){ return xScale(d.sectionName) - 5;})
-		.attr("width", 10)
-		.attr("height", 140);
+		.attr("width", 30)
+	
+	box.attr("x", function(d){ return xScale(d.sectionName) - 15;})
 		d.forEach(function(quartileArray){
 			//console.log(yScale(d3.quantile(quartileArray.quartiles, 0)));
 			//console.log(d3.quantile(quartileArray.quartiles, 0))
 			return box.attr(
-				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, 0.75));})
+				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, .75));})
 			);
 		});
-		// d.forEach(function(quartileArray){
-		// 	console.log(d3.quantile(quartileArray.quartiles, 0.25) - d3.quantile(quartileArray.quartiles, 0.75));
-		// 	//console.log(d3.quantile(quartileArray.quartiles, 0))
-		// 	return box.attr(
-		// 		"height", (function(d){ return yScale(
-		// 			d3.quantile(quartileArray.quartiles, 0.25) - d3.quantile(quartileArray.quartiles, 0.75) 
-		// 		);})
-		// 	);
-		// });
+		d.forEach(function(quartileArray){
+			console.log(d3.quantile(quartileArray.quartiles, 0.25));
+			//console.log(d3.quantile(quartileArray.quartiles, 0))
+			return box.attr(
+				"height", (function(d){ return yScale(
+					d3.quantile(quartileArray.quartiles, 0.25) 
+				);})
+			);
+		});
 	//TODO: Draw Average line
-	svg.append("g")
+	line = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
 		.selectAll("line")
 		.data(d)
 		.enter().append("line")
-		.attr("x1", function(d){ return xScale(d.sectionName) + 5 ;})
+
+	line.attr("x1", function(d){ return xScale(d.sectionName) + 15 ;})
 		.attr("y1", function(d){ return yScale(d.mean);})
-		.attr("x2", function(d){ return xScale(d.sectionName) - 5 ;})
+		.attr("x2", function(d){ return xScale(d.sectionName) - 15 ;})
 		.attr("y2", function(d){ return yScale(d.mean);});	
 
 });
