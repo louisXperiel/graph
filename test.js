@@ -66,7 +66,7 @@ d3.json("./blob.json").then(function(data){
 		.call(xAxis);
 
 	//TODO: Draw maxium point
-	svg.append("g")
+	min = svg.append("g")
 		.attr("transform", "translate("+ margin.left + "," + margin.top +")")
 		.selectAll("circle")
 		.data(d)
@@ -80,7 +80,7 @@ d3.json("./blob.json").then(function(data){
 		.text("stuff");
 
 	//TODO: Draw minimum point
-	svg.append("g")
+	max = svg.append("g")
 		.attr("transform", "translate("+ margin.left + "," + margin.top +")")
 		.selectAll("circle")
 		.data(d)
@@ -100,28 +100,35 @@ d3.json("./blob.json").then(function(data){
 		.data(d)
 		.enter().append("rect")
 		.attr("x", function(d){ return xScale(d.sectionName) - 5;})
-		.attr("height", 12) 
-		.attr("width", 10);
-		//.attr("y", d3.map(function(d){ return height - margin.top - margin.bottom - yScale(d.average);}));
-		//.attr("height", 200)
-		//.attr("width", 300);
-	d.forEach(function(quartileArray){
-		//console.log(yScale(d3.quantile(quartileArray.quartiles, 0)));
-		//console.log(d3.quantile(quartileArray.quartiles, 0))
-		return box.attr(
-			"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, 0));})
-		);
-	});
+		.attr("width", 10)
+		.attr("height", 140);
+		d.forEach(function(quartileArray){
+			//console.log(yScale(d3.quantile(quartileArray.quartiles, 0)));
+			//console.log(d3.quantile(quartileArray.quartiles, 0))
+			return box.attr(
+				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, 0.75));})
+			);
+		});
+		// d.forEach(function(quartileArray){
+		// 	console.log(d3.quantile(quartileArray.quartiles, 0.25) - d3.quantile(quartileArray.quartiles, 0.75));
+		// 	//console.log(d3.quantile(quartileArray.quartiles, 0))
+		// 	return box.attr(
+		// 		"height", (function(d){ return yScale(
+		// 			d3.quantile(quartileArray.quartiles, 0.25) - d3.quantile(quartileArray.quartiles, 0.75) 
+		// 		);})
+		// 	);
+		// });
 	//TODO: Draw Average line
-	svg.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
-		.selectAll("line")
-		.data(d)
-		.enter().append("line")
-		.attr("x", function(d){ return xScale(d.sectionName) - 5 ;})
-		.attr("y", function(d){ return yScale(d.mean);})
-		//.attr("height", 20) 
-		//.attr("width", 10);	
+	// svg.append("g")
+	// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
+	// 	.selectAll("line")
+	// 	.data(d)
+	// 	.enter().append("line")
+	// 	.attr("x1", call(max))
+	// 	.attr("y1", call(min.))
+	// 	.attr("x2", function(d){ return xScale(d.sectionName) - 5 ;})
+	// 	.attr("y2", function(d){ return yScale(d.mean);})
+	// 	;	
 
 });
 
