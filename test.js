@@ -127,8 +127,7 @@ d3.json("./blob.json").then(function(data){
 		.attr("x1", function(d){ return xScale(d.sectionName) + 5 ;})
 		.attr("y1", function(d){ return yScale(d.mean);})
 		.attr("x2", function(d){ return xScale(d.sectionName) - 5 ;})
-		.attr("y2", function(d){ return yScale(d.mean);})
-		;	
+		.attr("y2", function(d){ return yScale(d.mean);});	
 
 });
 
