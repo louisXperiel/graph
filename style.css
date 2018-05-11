@@ -20,7 +20,7 @@ line {
 }
 
 circle {
-    fill: #1b8be6;
+    fill: none;
     stroke: #0b110e;
 }
 .axis path,

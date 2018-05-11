@@ -50,7 +50,7 @@ d3.json("./blob.json").then(function(data){
 	//Shapes
 	
 	//SCALE
-	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.0009)), -10]);
+	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.0009)), 0]);
 	xScale.domain(d.map(function(d){ return d.sectionName; }));
 	//adding y axis to the left of the chart
 	//this should transform based on the margin 
@@ -104,7 +104,7 @@ d3.json("./blob.json").then(function(data){
 	// https://www.researchgate.net/figure/Diagram-of-boxplot-components-including-mean-median-1st-and-3rd-quartiles-outliers-and_fig4_321962400
 	// 3rd quartile 75%
 	box = svg.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+		.attr("transform", "translate(" + margin.left + "," + (margin.top - 100) + ")")
 		.selectAll("rect")
 		.data(d)
 		.enter().append("rect")
@@ -112,20 +112,18 @@ d3.json("./blob.json").then(function(data){
 	
 	box.attr("x", function(d){ return xScale(d.sectionName) - 15;})
 		d.forEach(function(quartileArray){
-			//console.log(yScale(d3.quantile(quartileArray.quartiles, 0)));
-			//console.log(d3.quantile(quartileArray.quartiles, 0))
 			return box.attr(
 				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, .75));})
 			);
 		});
 		d.forEach(function(quartileArray){
-			console.log(d3.quantile(quartileArray.quartiles, 0.25));
-			//console.log(d3.quantile(quartileArray.quartiles, 0))
-			return box.attr(
-				"height", (function(d){ return yScale(
-					d3.quantile(quartileArray.quartiles, 0.25) 
-				);})
-			);
+			console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
+			console.log(d3.quantile(quartileArray.quartiles, 0.25))
+			return box.attr("height", yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom ) 
+			// 	"height", (function(d){ return yScale(
+			// 		d3.quantile(quartileArray.quartiles, 0.25) - margin.bottom
+			// 	);})
+			// );
 		});
 	//TODO: Draw Average line
 	line = svg.append("g")
