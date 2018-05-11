@@ -104,21 +104,21 @@ d3.json("./blob.json").then(function(data){
 	// https://www.researchgate.net/figure/Diagram-of-boxplot-components-including-mean-median-1st-and-3rd-quartiles-outliers-and_fig4_321962400
 	// 3rd quartile 75%
 	box = svg.append("g")
-		.attr("transform", "translate(" + margin.left + "," + (margin.top - 100) + ")")
+		.attr("transform", "translate(" + margin.left + "," + margin.top +")")
 		.selectAll("rect")
 		.data(d)
 		.enter().append("rect")
 		.attr("width", 30)
 	
-	box.attr("x", function(d){ return xScale(d.sectionName) - 15;})
+	box.attr("x", function(d){ return xScale(d.sectionName);})
 		d.forEach(function(quartileArray){
 			return box.attr(
 				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, .75));})
 			);
 		});
 		d.forEach(function(quartileArray){
-			console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
-			console.log(d3.quantile(quartileArray.quartiles, 0.25))
+			//console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
+			console.log(d3.quantile(quartileArray.quartiles, 0.75))
 			return box.attr("height", yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom ) 
 			// 	"height", (function(d){ return yScale(
 			// 		d3.quantile(quartileArray.quartiles, 0.25) - margin.bottom
