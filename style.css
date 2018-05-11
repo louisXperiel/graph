@@ -1,0 +1,44 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333;
+  }
+
+rect {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.5px;
+}
+
+line {
+    fill: #000;
+    stroke: #000;
+    stroke-width: 3px;
+}
+.inner text {
+	text-anchor: middle;
+}
+
+circle {
+    fill: #1b8be6;
+    stroke: #0b110e;
+}
+.axis path,
+.axis text{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    text-anchor: end;
+}
+.axis line{
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke-width: 1px;
+}
+.chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+}

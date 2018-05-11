@@ -50,7 +50,7 @@ d3.json("./blob.json").then(function(data){
 	//Shapes
 	
 	//SCALE
-	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.001)), 0]);
+	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.0009)), -10]);
 	xScale.domain(d.map(function(d){ return d.sectionName; }));
 	//adding y axis to the left of the chart
 	//this should transform based on the margin 
