@@ -95,10 +95,7 @@ d3.json("./blob.json").then(function(data){
 		.attr('cy', function(d){ return yScale(d.min);});
 
 	//Draw Box
-	// upper fence = max
-	// max ovservation = highest quartile?
 	// https://www.researchgate.net/figure/Diagram-of-boxplot-components-including-mean-median-1st-and-3rd-quartiles-outliers-and_fig4_321962400
-	// 3rd quartile 75%
 	box = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top +")")
 		.selectAll("rect")
