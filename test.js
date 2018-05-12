@@ -1,5 +1,3 @@
-console.log(d3);
-
 var url = "https://backend-dot-xperiel-web.appspot.com/debug/messagePipelineTiming?experienceId=2p25c5nyQQwusHtHZnU3vI"
 
 // set the dimensions and margins of the graph
@@ -19,6 +17,8 @@ var xScale = d3.scalePoint()
 	//.round(true)
 	.padding([margin.right]);
 
+var tickScale = d3.scaleLinear();
+
 // Generate x and y axis, y will represent miliseconds and x will represent
 // sectionNames of the server backend. The axis is shaped by the corresponding scale variable.
 var yAxis = d3.axisLeft(yScale)
@@ -37,21 +37,17 @@ var svg = d3.select("body").append("svg")
 d3.json("./blob.json").then(function(data){
 	var d = data.sectionStats;
 	var quartileArray = [];
-	d.forEach(function(quartileArray){
-		return d3.quantile(quartileArray.quartiles, 0);
+	d.forEach(function(d){
+		return quartileArray.push(d.quartiles[2]);
 	});
-	// console.log(d3.nest()
-	// 	.key(function(d){ return d.sectionName; })
-	// 	.map(d.quartiles, d3.map)
-	// 	.entries(d.map(function(d){ return d.quartiles;}))
-	// );
-	//console.log(d3.quantile(d.map(function(d){ return d.max;}), 0.25));
-	//console.log(d3.nest(function(d){ return d3.map(d.quartiles);}));
 	//Shapes
-	
 	//SCALE
-	yScale.domain([(d3.quantile(d.map(function(d){ return d.max;}), 0.0009)), 0]);
+	//yScale.domain([d3.max(d.map(function(d){ return d.max;})), 0]);
+	yScale.domain([d3.max(quartileArray), 0]);
 	xScale.domain(d.map(function(d){ return d.sectionName; }));
+	tickScale.range([0, yScale(0) - yScale(1)])
+		.domain([0, yScale(0) - yScale(1)]);
+	console.log("tickScale", tickScale(0))
 	//adding y axis to the left of the chart
 	//this should transform based on the margin 
 	svg.append("g")
@@ -74,7 +70,7 @@ d3.json("./blob.json").then(function(data){
 		.attr("transform", "translate(" + margin.right + "," +  (height - margin.bottom) + ")")
 		.call(xAxis);
 
-	//TODO: Draw maxium point
+	// //TODO: Draw maxium point
 	min = svg.append("g")
 		.attr("transform", "translate("+ margin.left + "," + margin.top +")")
 		.selectAll("circle")
@@ -88,7 +84,7 @@ d3.json("./blob.json").then(function(data){
 		.attr("y", 3)
 		.text("stuff");
 
-	//TODO: Draw minimum point
+	// //TODO: Draw minimum point
 	max = svg.append("g")
 		.attr("transform", "translate("+ margin.left + "," + margin.top +")")
 		.selectAll("circle")
@@ -107,24 +103,45 @@ d3.json("./blob.json").then(function(data){
 		.attr("transform", "translate(" + margin.left + "," + margin.top +")")
 		.selectAll("rect")
 		.data(d)
-		.enter().append("rect")
-		.attr("width", 30)
 	
-	box.attr("x", function(d){ return xScale(d.sectionName);})
-		d.forEach(function(quartileArray){
-			return box.attr(
-				"y", (function(d){ return yScale(d3.quantile(quartileArray.quartiles, .75));})
-			);
-		});
-		d.forEach(function(quartileArray){
-			//console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
-			console.log(d3.quantile(quartileArray.quartiles, 0.75))
-			return box.attr("height", yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom ) 
-			// 	"height", (function(d){ return yScale(
-			// 		d3.quantile(quartileArray.quartiles, 0.25) - margin.bottom
-			// 	);})
-			// );
-		});
+	box.enter().append("rect")
+		.attr("x", function(d){ return xScale(d.sectionName) - 15;})
+		.attr("y", function(d){ console.log(d.quartiles[2]); return yScale(d.quartiles[3]);})
+		.attr("width", 30)
+		.attr("height", function(d){ console.log("Height", tickScale(d.quartiles[2])); return tickScale(d.quartiles[2]) });
+		//.attr("height", function(d){ console.log(d.quartiles[2]); return yScale(d.quartiles[2]);});
+	// 	.call(boxpoints(d));
+	// function boxpoints(y, b){
+		// var boxY = [],
+		// boxHeight = [];
+		// console.log(d)
+		// d.forEach(function(d){
+		// 	return boxY.push(d.quartiles[1]);
+		// });
+		// console.log(boxY)
+	// 	return box.attr("y", function(boxY){ return yScale(boxY);});
+	// };
+	// 	d.forEach(function(d){ 
+	// 	//console.log(yScale(d.quartiles[1]));
+	// 	console.log(d.quartiles[1]);
+	// 	console.log(d.quartiles[2]);
+	// 		return box.attr("y", yScale(d.quartiles[1]));
+	//	});
+	// box.attr("x", function(d){ return xScale(d.sectionName);})
+	// 	d.forEach(function(quartileArray){
+	// 		return box.attr(
+	// 			"y", (function(d){ return yScale(quartileArray.quartiles, .75););})
+	// 		);
+	// 	});
+	// 	d.forEach(function(quartileArray){
+	// 		//console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
+	// 		console.log(d3.quantile(quartileArray.quartiles, 0.75))
+	// 		return box.attr("height", yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom ) 
+	// 		// 	"height", (function(d){ return yScale(
+	// 		// 		d3.quantile(quartileArray.quartiles, 0.25) - margin.bottom
+	// 		// 	);})
+	// 		// );
+	// 	});
 	//TODO: Draw Average line
 	line = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
