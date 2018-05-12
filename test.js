@@ -46,7 +46,7 @@ d3.json("./blob.json").then(function(data){
 	yScale.domain([d3.max(quartileArray), 0]);
 	xScale.domain(d.map(function(d){ return d.sectionName; }));
 	tickScale.range([0, yScale(0) - yScale(1)])
-		.domain([0, yScale(0) - yScale(1)]);
+		.domain([yScale(0) - yScale(1) , 0]);
 	console.log("tickScale", tickScale(0))
 	//adding y axis to the left of the chart
 	//this should transform based on the margin 
@@ -106,42 +106,10 @@ d3.json("./blob.json").then(function(data){
 	
 	box.enter().append("rect")
 		.attr("x", function(d){ return xScale(d.sectionName) - 15;})
-		.attr("y", function(d){ console.log(d.quartiles[2]); return yScale(d.quartiles[3]);})
+		.attr("y", function(d){ console.log("Y point", d.quartiles[2]); return yScale(d.quartiles[2]);})
 		.attr("width", 30)
 		.attr("height", function(d){ console.log("Height", tickScale(d.quartiles[2])); return tickScale(d.quartiles[2]) });
-		//.attr("height", function(d){ console.log(d.quartiles[2]); return yScale(d.quartiles[2]);});
-	// 	.call(boxpoints(d));
-	// function boxpoints(y, b){
-		// var boxY = [],
-		// boxHeight = [];
-		// console.log(d)
-		// d.forEach(function(d){
-		// 	return boxY.push(d.quartiles[1]);
-		// });
-		// console.log(boxY)
-	// 	return box.attr("y", function(boxY){ return yScale(boxY);});
-	// };
-	// 	d.forEach(function(d){ 
-	// 	//console.log(yScale(d.quartiles[1]));
-	// 	console.log(d.quartiles[1]);
-	// 	console.log(d.quartiles[2]);
-	// 		return box.attr("y", yScale(d.quartiles[1]));
-	//	});
-	// box.attr("x", function(d){ return xScale(d.sectionName);})
-	// 	d.forEach(function(quartileArray){
-	// 		return box.attr(
-	// 			"y", (function(d){ return yScale(quartileArray.quartiles, .75););})
-	// 		);
-	// 	});
-	// 	d.forEach(function(quartileArray){
-	// 		//console.log(yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom);
-	// 		console.log(d3.quantile(quartileArray.quartiles, 0.75))
-	// 		return box.attr("height", yScale(d3.quantile(quartileArray.quartiles, 0.25)) - margin.bottom ) 
-	// 		// 	"height", (function(d){ return yScale(
-	// 		// 		d3.quantile(quartileArray.quartiles, 0.25) - margin.bottom
-	// 		// 	);})
-	// 		// );
-	// 	});
+
 	//TODO: Draw Average line
 	line = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")    
