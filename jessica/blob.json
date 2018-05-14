@@ -1,0 +1,554 @@
+{
+    "sectionStats": [
+        {
+            "sectionName": "FireTriggerAction",
+            "mean": 1.3917525773195871,
+            "standardDeviation": 1.0336985362538857,
+            "max": 9,
+            "min": 1,
+            "quartiles": [
+                1,
+                1,
+                1
+            ],
+            "cohorts": [
+                {
+                    "duration": 1,
+                    "count": 148
+                },
+                {
+                    "duration": 2,
+                    "count": 34
+                },
+                {
+                    "duration": 3,
+                    "count": 6
+                },
+                {
+                    "duration": 4,
+                    "count": 2
+                },
+                {
+                    "duration": 5,
+                    "count": 2
+                },
+                {
+                    "duration": 9,
+                    "count": 2
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorQueue",
+            "mean": 9.372227579556412,
+            "standardDeviation": 41.93350960685447,
+            "max": 639,
+            "min": 3,
+            "quartiles": [
+                4,
+                4,
+                5
+            ],
+            "cohorts": [
+                {
+                    "duration": 3,
+                    "count": 68
+                },
+                {
+                    "duration": 4,
+                    "count": 616
+                },
+                {
+                    "duration": 5,
+                    "count": 305
+                },
+                {
+                    "duration": 6,
+                    "count": 18
+                },
+                {
+                    "duration": 7,
+                    "count": 5
+                },
+                {
+                    "duration": 8,
+                    "count": 2
+                },
+                {
+                    "duration": 9,
+                    "count": 1
+                },
+                {
+                    "duration": 10,
+                    "count": 1
+                },
+                {
+                    "duration": 11,
+                    "count": 1
+                },
+                {
+                    "duration": 15,
+                    "count": 1
+                },
+                {
+                    "duration": 18,
+                    "count": 1
+                },
+                {
+                    "duration": 38,
+                    "count": 1
+                },
+                {
+                    "duration": 166,
+                    "count": 1
+                },
+                {
+                    "duration": 180,
+                    "count": 1
+                },
+                {
+                    "duration": 192,
+                    "count": 1
+                },
+                {
+                    "duration": 216,
+                    "count": 1
+                },
+                {
+                    "duration": 223,
+                    "count": 1
+                },
+                {
+                    "duration": 234,
+                    "count": 1
+                },
+                {
+                    "duration": 247,
+                    "count": 1
+                },
+                {
+                    "duration": 259,
+                    "count": 1
+                },
+                {
+                    "duration": 270,
+                    "count": 1
+                },
+                {
+                    "duration": 279,
+                    "count": 1
+                },
+                {
+                    "duration": 307,
+                    "count": 1
+                },
+                {
+                    "duration": 315,
+                    "count": 1
+                },
+                {
+                    "duration": 366,
+                    "count": 1
+                },
+                {
+                    "duration": 445,
+                    "count": 1
+                },
+                {
+                    "duration": 453,
+                    "count": 1
+                },
+                {
+                    "duration": 475,
+                    "count": 1
+                },
+                {
+                    "duration": 639,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorMetadataRead",
+            "mean": 0.06122448979591836,
+            "standardDeviation": 0.40041841015623403,
+            "max": 4,
+            "min": 0,
+            "quartiles": [
+                0,
+                0,
+                0
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 191
+                },
+                {
+                    "duration": 2,
+                    "count": 4
+                },
+                {
+                    "duration": 4,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorProgramLoad",
+            "mean": 2.979591836734699,
+            "standardDeviation": 29.37030755689145,
+            "max": 293,
+            "min": 0,
+            "quartiles": [
+                0,
+                0,
+                0
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 193
+                },
+                {
+                    "duration": 1,
+                    "count": 1
+                },
+                {
+                    "duration": 290,
+                    "count": 1
+                },
+                {
+                    "duration": 293,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorInitialize",
+            "mean": 0.40816326530612246,
+            "standardDeviation": 0.5030519103331146,
+            "max": 2,
+            "min": 0,
+            "quartiles": [
+                0,
+                0,
+                1
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 117
+                },
+                {
+                    "duration": 1,
+                    "count": 78
+                },
+                {
+                    "duration": 2,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorProcess",
+            "mean": 0.6020408163265306,
+            "standardDeviation": 0.5771689690535213,
+            "max": 2,
+            "min": 0,
+            "quartiles": [
+                0,
+                1,
+                1
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 87
+                },
+                {
+                    "duration": 1,
+                    "count": 100
+                },
+                {
+                    "duration": 2,
+                    "count": 9
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorProcessIndividual",
+            "mean": 0.5255102040816327,
+            "standardDeviation": 0.567822873156725,
+            "max": 2,
+            "min": 0,
+            "quartiles": [
+                0,
+                0,
+                1
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 100
+                },
+                {
+                    "duration": 1,
+                    "count": 89
+                },
+                {
+                    "duration": 2,
+                    "count": 7
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorWriteData",
+            "mean": 8.698979591836732,
+            "standardDeviation": 40.48458014754085,
+            "max": 448,
+            "min": 2,
+            "quartiles": [
+                4,
+                4,
+                5
+            ],
+            "cohorts": [
+                {
+                    "duration": 2,
+                    "count": 1
+                },
+                {
+                    "duration": 3,
+                    "count": 40
+                },
+                {
+                    "duration": 4,
+                    "count": 99
+                },
+                {
+                    "duration": 5,
+                    "count": 39
+                },
+                {
+                    "duration": 6,
+                    "count": 5
+                },
+                {
+                    "duration": 7,
+                    "count": 3
+                },
+                {
+                    "duration": 8,
+                    "count": 2
+                },
+                {
+                    "duration": 10,
+                    "count": 2
+                },
+                {
+                    "duration": 23,
+                    "count": 1
+                },
+                {
+                    "duration": 24,
+                    "count": 1
+                },
+                {
+                    "duration": 55,
+                    "count": 1
+                },
+                {
+                    "duration": 355,
+                    "count": 1
+                },
+                {
+                    "duration": 448,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "MessageProcessorWriteResults",
+            "mean": 0.8316326530612247,
+            "standardDeviation": 1.0214215271664675,
+            "max": 6,
+            "min": 0,
+            "quartiles": [
+                0,
+                1,
+                1
+            ],
+            "cohorts": [
+                {
+                    "duration": 0,
+                    "count": 81
+                },
+                {
+                    "duration": 1,
+                    "count": 93
+                },
+                {
+                    "duration": 2,
+                    "count": 6
+                },
+                {
+                    "duration": 3,
+                    "count": 9
+                },
+                {
+                    "duration": 4,
+                    "count": 5
+                },
+                {
+                    "duration": 5,
+                    "count": 1
+                },
+                {
+                    "duration": 6,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "ResultDispatcherQueue",
+            "mean": 4.086788813886209,
+            "standardDeviation": 2.9188161055902633,
+            "max": 88,
+            "min": 3,
+            "quartiles": [
+                4,
+                4,
+                4
+            ],
+            "cohorts": [
+                {
+                    "duration": 3,
+                    "count": 254
+                },
+                {
+                    "duration": 4,
+                    "count": 650
+                },
+                {
+                    "duration": 5,
+                    "count": 93
+                },
+                {
+                    "duration": 6,
+                    "count": 20
+                },
+                {
+                    "duration": 7,
+                    "count": 3
+                },
+                {
+                    "duration": 8,
+                    "count": 9
+                },
+                {
+                    "duration": 9,
+                    "count": 2
+                },
+                {
+                    "duration": 14,
+                    "count": 2
+                },
+                {
+                    "duration": 17,
+                    "count": 1
+                },
+                {
+                    "duration": 23,
+                    "count": 1
+                },
+                {
+                    "duration": 24,
+                    "count": 1
+                },
+                {
+                    "duration": 88,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "sectionName": "ResultDispatcher",
+            "mean": 2.801020408163263,
+            "standardDeviation": 3.227478015113798,
+            "max": 22,
+            "min": 1,
+            "quartiles": [
+                1,
+                2,
+                3
+            ],
+            "cohorts": [
+                {
+                    "duration": 1,
+                    "count": 72
+                },
+                {
+                    "duration": 2,
+                    "count": 69
+                },
+                {
+                    "duration": 3,
+                    "count": 20
+                },
+                {
+                    "duration": 4,
+                    "count": 13
+                },
+                {
+                    "duration": 5,
+                    "count": 3
+                },
+                {
+                    "duration": 6,
+                    "count": 4
+                },
+                {
+                    "duration": 7,
+                    "count": 2
+                },
+                {
+                    "duration": 8,
+                    "count": 1
+                },
+                {
+                    "duration": 9,
+                    "count": 2
+                },
+                {
+                    "duration": 11,
+                    "count": 2
+                },
+                {
+                    "duration": 13,
+                    "count": 2
+                },
+                {
+                    "duration": 14,
+                    "count": 1
+                },
+                {
+                    "duration": 15,
+                    "count": 2
+                },
+                {
+                    "duration": 16,
+                    "count": 1
+                },
+                {
+                    "duration": 18,
+                    "count": 1
+                },
+                {
+                    "duration": 22,
+                    "count": 1
+                }
+            ]
+        }
+    ]
+}
