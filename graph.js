@@ -13,13 +13,17 @@ var margin = {top: 20, right: 50, bottom: 50, left: 50},
 // domain is the scope in which the data will exist
 var yScale = d3.scaleTime()
 	.range([0, dataHeight]);
-
-var xScale = d3.scalePoint()
+	xScale = d3.scalePoint()
 	.range([0, dataWidth])
 	//.round(true)
 	.padding([padding]);
 
-var tickScale = d3.scaleLinear();
+var yScaleBG = d3.scaleTime()
+	.range([0, dataHeight]);
+	xScaleBG = d3.scalePoint()
+	.range([0, dataWidth])
+	//.round(true)
+	.padding([padding]);
 
 // Generate x and y axis, y will represent miliseconds and x will represent
 // sectionNames of the server backend. The axis is shaped by the corresponding scale variable.
@@ -45,25 +49,35 @@ d3.json("./blob.json").then(function(data){
 
 	yScale.domain([maxQuartile, 0]);
 	xScale.domain(sections.map((section) => section.sectionName))
-	tickScale
-		.range([0, yScale(0) - yScale(1)])
-		.domain([0, yScale(0) - yScale(1)]);
 	
 	//Shapes
 	//SCALE
 	//adding y axis to the left of the chart
 	svg.append("g")
 		.attr("class", "y axis")
+		.attr("opacity", "0.8")
 		.attr("transform", offsetTranslation)
 		.call(yAxis);
+
+	svg.append('text')
+		.attr("transform", offsetTranslation)	
+		.text("Milliseconds")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("transform", "rotate(90)")
+		.attr("fill", "#000");
 
 	//adding x axis to the bottom of chart
 	svg.append("g")
 		.attr("class", "x axis")
+		.attr("opacity", "0.7")
 		.attr("transform", "translate("+ margin.left + "," + (margin.top + dataHeight)+ ")")
-		.call(xAxis);
-
-
+		.call(xAxis)
+		.selectAll(".axis text")  // select all the text elements for the xaxis
+			.attr("transform", function(d) { return "rotate(-5)";});
+		//   .attr("transform", function(d) {
+        //      return "translate(0 ,1 )rotate(-45)";
+        //  })
 
 	// Draw max-to-min line
 	var range = svg.append("g")
@@ -132,4 +146,30 @@ d3.json("./blob.json").then(function(data){
 		.attr('cx', function(section){ return xScale(section.sectionName); })	
 		.attr('cy', function(section){ return yScale(section.mean);})
 		.style("fill", "#0091EA");
+	
+	svg.append('g')
+		.attr("transform", offsetTranslation)	
+		.selectAll("text")
+		.data(sections)
+		.enter().append("text")
+		.text(function(section){ return Math.abs(section.mean);})
+		.attr("x", function(section){ return xScale(section.sectionName) + 20; })
+		.attr("y", function(section){ return yScale(section.mean);})
+		.attr("dy", ".35em")
+		.attr("fill", "#000")
+		;
+	
+	svg.append('g')
+		.attr("transform", offsetTranslation)	
+		.selectAll("text")
+		.data(sections)
+		.enter().append("text")
+		.text(function(section){ return Math.abs(section.min);})
+		.attr("x", function(section){ return xScale(section.sectionName) + 20; })
+		.attr("y", function(section){ return yScale(section.min);})
+		.attr("dy", ".35em")
+		.attr("fill", "#000")
+		;
+
+	var cohorts = svg.append("g");
 });	
