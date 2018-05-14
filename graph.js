@@ -18,13 +18,6 @@ var yScale = d3.scaleTime()
 	//.round(true)
 	.padding([padding]);
 
-var yScaleBG = d3.scaleTime()
-	.range([0, dataHeight]);
-	xScaleBG = d3.scalePoint()
-	.range([0, dataWidth])
-	//.round(true)
-	.padding([padding]);
-
 // Generate x and y axis, y will represent miliseconds and x will represent
 // sectionNames of the server backend. The axis is shaped by the corresponding scale variable.
 var yAxis = d3.axisLeft(yScale)
@@ -73,11 +66,8 @@ d3.json("./blob.json").then(function(data){
 		.attr("opacity", "0.7")
 		.attr("transform", "translate("+ margin.left + "," + (margin.top + dataHeight)+ ")")
 		.call(xAxis)
-		.selectAll(".axis text")  // select all the text elements for the xaxis
-			.attr("transform", function(d) { return "rotate(-5)";});
-		//   .attr("transform", function(d) {
-        //      return "translate(0 ,1 )rotate(-45)";
-        //  })
+		.selectAll(".axis text")
+		.attr("transform", function(d) { return "rotate(-5)";});
 
 	// Draw max-to-min line
 	var range = svg.append("g")
@@ -102,7 +92,8 @@ d3.json("./blob.json").then(function(data){
 		.attr('y', section => yScale(section.quartiles[2]))
 		.attr('width', 30)
 		.attr('height', section => Math.abs(yScale(section.quartiles[2]) - yScale(section.quartiles[0])))
-		.style("fill", "#fff");
+		.style("fill", "#fff")
+		.on("mouseover", onHover);
 
 	// Draw median marker
 	var median = svg.append("g")
@@ -164,12 +155,64 @@ d3.json("./blob.json").then(function(data){
 		.selectAll("text")
 		.data(sections)
 		.enter().append("text")
-		.text(function(section){ return Math.abs(section.min);})
+		.text(function(section){ return "Min "+Math.abs(section.min);})
 		.attr("x", function(section){ return xScale(section.sectionName) + 20; })
 		.attr("y", function(section){ return yScale(section.min);})
 		.attr("dy", ".35em")
 		.attr("fill", "#000")
 		;
 
-	var cohorts = svg.append("g");
-});	
+// Second Cohorts graph
+	// New SVG for secondary graph
+	svg = d3.select("body").append("svg")
+	.attr("height", 200)
+	.attr("width", totalWidth);	
+	// Variables
+	var yScaleBG = d3.scaleTime()
+		.range([0, 100])
+		.domain([maxQuartile, 0]);
+	
+	var xScaleBG = d3.scalePoint()
+		.range([0, dataWidth])
+		.padding([padding]);	
+		
+	var yAxisBG = d3.axisLeft(yScaleBG)
+		.tickSizeInner([10])
+		.tickFormat(d3.timeFormat("%Q"));
+	
+	var xAxisBG = d3.axisBottom(xScaleBG);
+
+	svg.append("g")
+	.attr("class", "y axis")
+	.attr("transform", offsetTranslation)
+	.call(yAxisBG);
+
+	svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(" + margin.left + "," + (margin.top + 100)+ ")")
+		.call(xAxisBG)
+		.selectAll(".axis text");
+		
+	function onHover(){
+		console.log(sections[0].cohorts)
+		xScaleBG.domain([sections[0].cohorts, 0]);
+		var bar = svg.append("g")
+			.attr("transform", offsetTranslation)
+			.selectAll("rect")
+			.data(sections)
+			.enter().append("rect")
+			.attr('x', section => xScale(section.sectionName) - 18)
+			.attr('y', section => yScale(section.quartiles[1]) - 2)
+			.attr('width', 36)
+			.attr('height', 4)
+			.style("fill", "#ccc");
+		sections.forEach(sections => {
+			console.log(this);
+		});
+
+	}
+	// sections.forEach(sections => {
+	// 	console.log(this)
+	// });
+	
+});
